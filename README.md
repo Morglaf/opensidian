@@ -5,6 +5,30 @@
 # opensidian
 Open-source and non-profit under GPLv3, vault-compatible cross-platform markdown notes app. It's based on Rust + Tauri v2 and under heavy development. We're looking for Linux distribution maintainers. Not affiliated with or endorsed by Obsidian or Dynalist Inc.; "Obsidian" is their trademark. Opensidian is a clean-room functional clone: it reimplements Obsidian's behaviour from the outside and contains none of its code.
 
+## Windows (experimental) — this fork
+This repository ([Morglaf/opensidian](https://github.com/Morglaf/opensidian)) is a **fork** of the upstream project ([jpzk/opensidian](https://github.com/jpzk/opensidian)). Linux packages and the mainline codebase live upstream.
+
+**Branch `windows-experimental`** is an experimental MSVC / WebView2 port. It is not an official Windows release from the upstream maintainer.
+
+| | |
+|---|---|
+| Branch | [`windows-experimental`](https://github.com/Morglaf/opensidian/tree/windows-experimental) |
+| Status | Works for opening a vault and basic editing; expect rough edges |
+| Needs | [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/) (usually already on Windows 10/11), Visual Studio Build Tools (MSVC) to build from source |
+| Not yet | MSI installer, Landlock sandbox, Secret Service keyring (Linux-only), signed releases like upstream |
+
+**Download:** see [Releases](https://github.com/Morglaf/opensidian/releases) on this fork (tag `v*-windows.*`). DevTools: **F12**, or set `OPENSIDIAN_DEVTOOLS=1` when launching.
+
+**Build (Windows):**
+
+```powershell
+git clone -b windows-experimental https://github.com/Morglaf/opensidian
+cd opensidian\src-tauri
+cargo build --release --locked   # -> target\release\opensidian.exe
+```
+
+To pick up new upstream Linux work without losing the Windows port: stay on `windows-experimental`, then `git fetch upstream` and `git rebase upstream/main` (resolve conflicts if Git stops).
+
 ## Features
 - live preview, source and reading modes
 - [[wikilinks]], backlinks, tags, graph view
