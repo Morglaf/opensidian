@@ -89,7 +89,7 @@ pub fn list(root: &Path) -> Vec<String> {
 fn exists(v: &Vault, rel: &Path) -> io::Result<bool> {
     match v.p_stat(rel) {
         Ok(_) => Ok(true),
-        Err(e) if e.kind() == io::ErrorKind::NotFound || matches!(e.raw_os_error(), Some(libc::ENOENT)) => Ok(false),
+        Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(false),
         Err(e) => Err(e),
     }
 }
@@ -132,7 +132,7 @@ pub fn op(root: &Path, op: &str, path: &str, data: Option<&str>) -> Result<Value
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, unix))]
 mod tests {
     use super::*;
     use std::fs;
